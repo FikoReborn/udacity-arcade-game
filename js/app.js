@@ -17,19 +17,34 @@ Enemy.prototype.update = function(dt) {
 };
 
 // Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
+Enemy.prototype.render = function(x, y) {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+var Player = function(x, y) {
+    this.sprite = 'images/char-boy.png';
+    this.x = x;
+    this.y = y;
+};
 
+Player.prototype.update = function(dt) {
+
+}
+;
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
+// Now write your own player class
 // Place the player object in a variable called player
+let player = new Player(201, 400);
 
+let allEnemies = [new Enemy(5, 5)];
 
 
 // This listens for key presses and sends the keys to your
@@ -42,5 +57,5 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+    // player.handleInput(allowedKeys[e.keyCode]);
 });
