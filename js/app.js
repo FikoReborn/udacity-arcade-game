@@ -25,6 +25,8 @@ Enemy.prototype.update = function(dt) {
     if (this.y === player.y && this.x >= player.x - 61 && this.x <= player.x + 30) {
         player.x = 201;
         player.y = 400;
+        lives -= 1;
+        
     }
 };
 
@@ -32,7 +34,17 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     ctx.font = "20px 'Press Start 2P'";
-    ctx.fillText(score, 0,30);
+    ctx.fillText(score, 0,40);
+    if (lives === 3) {
+        ctx.drawImage(Resources.get('images/Heart.png'), 470, 0, 30, 50);
+        ctx.drawImage(Resources.get('images/Heart.png'), 440, 0, 30, 50);
+        ctx.drawImage(Resources.get('images/Heart.png'), 410, 0, 30, 50);
+    } else if (lives === 2) {
+        ctx.drawImage(Resources.get('images/Heart.png'), 470, 0, 30, 50);
+        ctx.drawImage(Resources.get('images/Heart.png'), 440, 0, 30, 50);
+    } else if (lives === 1) {
+        ctx.drawImage(Resources.get('images/Heart.png'), 470, 0, 30, 50);
+    }
 };
 
 // Now write your own player class
@@ -79,6 +91,7 @@ function randLoc(array) {
 const player = new Player(201, 400);
 const enemyRows = [68, 151, 234];
 const enemyCols = [-800, -600, -500, -400, -300, -200, -100];
+let lives = 3;
 let realScore = 0;
 let score = '0000' + realScore;
 let gameNum = 1;
