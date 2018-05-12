@@ -22,6 +22,10 @@ Enemy.prototype.update = function(dt) {
         this.x = enemyCols[Math.floor(Math.random() * enemyCols.length)];
         this.y = enemyRows[Math.floor(Math.random() * enemyRows.length)];
     }
+    if (this.y === player.y && this.x >= player.x - 61 && this.x <= player.x + 30) {
+        player.x = 201;
+        player.y = 400;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -38,7 +42,11 @@ var Player = function(x, y) {
     this.y = y;
 };
 
-Player.prototype.update = function(dt) {
+Player.prototype.update = function() {
+    if (this.y === -15) {
+        this.x = 201;
+        this.y = 400;
+    }
 
 };
 
@@ -66,10 +74,10 @@ const enemyRows = [68, 151, 234];
 const enemyCols = [-800, -600, -500, -400, -300, -200, -100];
 
 let allEnemies = [
-    new Enemy(enemyCols[Math.floor(Math.random() * enemyCols.length)], enemyRows[Math.floor(Math.random() * enemyRows.length)], 300), 
-    new Enemy(enemyCols[Math.floor(Math.random() * enemyCols.length)], enemyRows[Math.floor(Math.random() * enemyRows.length)], 300), 
-    new Enemy(enemyCols[Math.floor(Math.random() * enemyCols.length)], enemyRows[Math.floor(Math.random() * enemyRows.length)], 300),
-    new Enemy(enemyCols[Math.floor(Math.random() * enemyCols.length)], enemyRows[Math.floor(Math.random() * enemyRows.length)], 500),
+    new Enemy(enemyCols[Math.floor(Math.random() * enemyCols.length)], enemyRows[Math.floor(Math.random() * enemyRows.length)], 100), 
+    new Enemy(enemyCols[Math.floor(Math.random() * enemyCols.length)], enemyRows[Math.floor(Math.random() * enemyRows.length)], 100), 
+    new Enemy(enemyCols[Math.floor(Math.random() * enemyCols.length)], enemyRows[Math.floor(Math.random() * enemyRows.length)], 100),
+    new Enemy(enemyCols[Math.floor(Math.random() * enemyCols.length)], enemyRows[Math.floor(Math.random() * enemyRows.length)], 100),
 ];
 
 
