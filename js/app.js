@@ -1,3 +1,25 @@
+
+let lives = 3;
+let realScore = 9;
+let score = '00000' + realScore.toString();
+let gameNum = 1;
+let spdMultiplier = gameNum * 0.8 * 100;
+let spdMultiplierRogue = gameNum * 0.8 * 300;
+
+function findScore() {
+    realScore += 10;
+    if (realScore > 9 && realScore < 99) {
+        score = '0000' + realScore.toString();
+    } else if (realScore > 99 && realScore < 999) {
+        score = '000' + realScore.toString();
+    } else if (realScore > 999 && realScore < 9999) {
+        score = '00' + realScore.toString();
+    } else if (realScore > 9999 && realScore < 99999) {
+        score = '0' + realScore.toString();
+    } else if (realScore > 99999) {
+        score = realScore;
+    }
+}
 // Enemies our player must avoid
 var Enemy = function(x, y, spd) {
     // Variables applied to each of our instances go here,
@@ -26,7 +48,7 @@ Enemy.prototype.update = function(dt) {
         player.x = 201;
         player.y = 400;
         lives -= 1;
-        
+
     }
 };
 
@@ -61,6 +83,7 @@ Player.prototype.update = function() {
         this.x = 201;
         this.y = 400;
         gameNum += 1;
+        findScore();
     }
 
 };
@@ -72,7 +95,7 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(keyPressed) {
     if (keyPressed === 'up' && this.y >= 68) {
         this.y -= 83;
-    } else if (keyPressed === 'down' && this.y <= 317) {
+    } else if (keyPressed === 'down' && this.y <= 317) {comotify
         this.y += 83;
     } else if (keyPressed === 'left' && this.x >= 0) {
         this.x -= 101;
@@ -91,10 +114,6 @@ function randLoc(array) {
 const player = new Player(201, 400);
 const enemyRows = [68, 151, 234];
 const enemyCols = [-800, -600, -500, -400, -300, -200, -100];
-let lives = 3;
-let realScore = 0;
-let score = '0000' + realScore;
-let gameNum = 1;
 
 let allEnemies = [
     new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 100), 
