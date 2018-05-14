@@ -3,11 +3,11 @@ let lives = 3;
 let realScore = 9;
 let score = '00000' + realScore.toString();
 let gameNum = 1;
-let spdMultiplier = gameNum * 0.8 * 100;
-let spdMultiplierRogue = gameNum * 0.8 * 300;
+let spdMultiplier = 100;
+let spdMultiplierRogue = 300;
 
 function findScore() {
-    realScore += 10;
+    realScore += 10 * gameNum;
     if (realScore > 9 && realScore < 99) {
         score = '0000' + realScore.toString();
     } else if (realScore > 99 && realScore < 999) {
@@ -19,6 +19,38 @@ function findScore() {
     } else if (realScore > 99999) {
         score = realScore;
     }
+}
+
+function resetBugs() {
+    if (gameNum <= 4) {
+            spdMultiplier += 100;
+            spdMultiplierRogue += 100;
+        }
+        if (gameNum < 20) {
+            allEnemies = [
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue)
+            ];
+        } else if (gameNum < 50) {
+            allEnemies = [
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue),
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700)
+            ];
+        } else {
+            allEnemies = [
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue),
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700),
+                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700)
+            ];
+        }
 }
 // Enemies our player must avoid
 var Enemy = function(x, y, spd) {
@@ -84,6 +116,7 @@ Player.prototype.update = function() {
         this.y = 400;
         gameNum += 1;
         findScore();
+        resetBugs();
     }
 
 };
