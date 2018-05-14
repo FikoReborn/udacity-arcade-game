@@ -1,7 +1,7 @@
 // Global variables
 const gameBoard = document.querySelector('canvas');
 let lives = 3;
-let realScore = 9;
+let realScore = 0;
 let score = '00000' + realScore.toString();
 let gameNum = 1;
 let spdMultiplier = 100;
