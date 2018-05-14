@@ -1,4 +1,5 @@
-
+// Global variables
+const gameBoard = document.querySelector('canvas');
 let lives = 3;
 let realScore = 9;
 let score = '00000' + realScore.toString();
@@ -6,6 +7,7 @@ let gameNum = 1;
 let spdMultiplier = 100;
 let spdMultiplierRogue = 300;
 
+// Global functions
 function findScore() {
     realScore += 10 * gameNum;
     if (realScore > 9 && realScore < 99) {
@@ -65,6 +67,21 @@ function calculateLives() {
         ctx.drawImage(Resources.get('images/Heart.png'), 470, 0, 30, 50);
     }
 }
+
+function gamePad (event) {
+    if (event.clientX >= 739 && event.clientX <= 790 && event.clientY >= 464 && event.clientY <= 505) {
+        player.handleInput('up');
+    } else if (event.clientX >= 705 && event.clientX <= 742 && event.clientY >= 506 && event.clientY <= 552) {
+        player.handleInput('left');
+    } else if (event.clientX >= 735 && event.clientX <= 793 && event.clientY >= 557 && event.clientY <= 584) {
+        player.handleInput('down');
+    } else if (event.clientX >= 792 && event.clientX <= 817 && event.clientY >= 505 && event.clientY <= 552) {
+        player.handleInput('right');
+    }
+}
+
+// Below are our classess
+
 // Enemies our player must avoid
 var Enemy = function(x, y, spd) {
     // Variables applied to each of our instances go here,
@@ -127,12 +144,16 @@ Player.prototype.update = function() {
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get('images/up_arrow.png'), 32, 448);
+    ctx.drawImage(Resources.get('images/down_arrow.png'), 32, 530);
+    ctx.drawImage(Resources.get('images/left_arrow.png'), -10, 490);
+    ctx.drawImage(Resources.get('images/right_arrow.png'), 73, 490);
 };
 
 Player.prototype.handleInput = function(keyPressed) {
     if (keyPressed === 'up' && this.y >= 68) {
         this.y -= 83;
-    } else if (keyPressed === 'down' && this.y <= 317) {comotify
+    } else if (keyPressed === 'down' && this.y <= 317) {
         this.y += 83;
     } else if (keyPressed === 'left' && this.x >= 0) {
         this.x -= 101;
@@ -173,3 +194,5 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+gameBoard.addEventListener('click', gamePad);
