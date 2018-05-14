@@ -33,24 +33,24 @@ function resetBugs() {
             new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
             new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
             new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue)
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue, 'images/enemy-bug-rogue.png')
         ];
     } else if (gameNum < 50) {
         allEnemies = [
             new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
             new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier, 'images/enemy-bug-rogue.png'),
             new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue),
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700)
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700, 'images/enemy-bug-rogue.png')
         ];
     } else {
         allEnemies = [
             new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
             new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
             new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue),
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700),
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700)
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue, 'images/enemy-bug-rogue.png'),
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700, 'images/enemy-bug-rogue.png'),
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700, 'images/enemy-bug-rogue.png')
         ];
     }
 }
@@ -83,13 +83,13 @@ function gamePad (event) {
 // Below are our classess
 
 // Enemies our player must avoid
-var Enemy = function(x, y, spd) {
+var Enemy = function(x, y, spd, sprite = 'images/enemy-bug.png') {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
+    this.sprite = sprite;
     this.x = x;
     this.y = y;
     this.spd = spd;
