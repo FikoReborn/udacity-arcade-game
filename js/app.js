@@ -69,13 +69,15 @@ function calculateLives() {
 }
 
 function gamePad (event) {
-    if (event.clientX >= 739 && event.clientX <= 790 && event.clientY >= 464 && event.clientY <= 505) {
+    const xClick = event.clientX - this.offsetLeft;
+    const yClick = event.clientY - this.offsetTop;
+    if (xClick >= 37 && xClick <= 89 && yClick >= 467 && yClick <= 491) {
         player.handleInput('up');
-    } else if (event.clientX >= 705 && event.clientX <= 742 && event.clientY >= 506 && event.clientY <= 552) {
+    } else if (xClick >= 0 && xClick <= 37 && yClick >= 501 && yClick <= 548) {
         player.handleInput('left');
-    } else if (event.clientX >= 735 && event.clientX <= 793 && event.clientY >= 557 && event.clientY <= 584) {
+    } else if (xClick >= 38 && xClick <= 92 && yClick >= 548 && yClick <= 580) {
         player.handleInput('down');
-    } else if (event.clientX >= 792 && event.clientX <= 817 && event.clientY >= 505 && event.clientY <= 552) {
+    } else if (xClick >= 94 && xClick <= 120 && yClick >= 487 && yClick <= 543) {
         player.handleInput('right');
     }
 }
