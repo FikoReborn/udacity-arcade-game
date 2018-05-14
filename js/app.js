@@ -23,34 +23,47 @@ function findScore() {
 
 function resetBugs() {
     if (gameNum <= 4) {
-            spdMultiplier += 100;
-            spdMultiplierRogue += 100;
-        }
-        if (gameNum < 20) {
-            allEnemies = [
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue)
-            ];
-        } else if (gameNum < 50) {
-            allEnemies = [
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue),
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700)
-            ];
-        } else {
-            allEnemies = [
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue),
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700),
-                new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700)
-            ];
-        }
+        spdMultiplier += 100;
+        spdMultiplierRogue += 100;
+    }
+    if (gameNum < 20) {
+        allEnemies = [
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue)
+        ];
+    } else if (gameNum < 50) {
+        allEnemies = [
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue),
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700)
+        ];
+    } else {
+        allEnemies = [
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue),
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700),
+            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700)
+        ];
+    }
+}
+
+function calculateLives() {
+        if (lives === 3) {
+        ctx.drawImage(Resources.get('images/Heart.png'), 470, 0, 30, 50);
+        ctx.drawImage(Resources.get('images/Heart.png'), 440, 0, 30, 50);
+        ctx.drawImage(Resources.get('images/Heart.png'), 410, 0, 30, 50);
+    } else if (lives === 2) {
+        ctx.drawImage(Resources.get('images/Heart.png'), 470, 0, 30, 50);
+        ctx.drawImage(Resources.get('images/Heart.png'), 440, 0, 30, 50);
+    } else if (lives === 1) {
+        ctx.drawImage(Resources.get('images/Heart.png'), 470, 0, 30, 50);
+    }
 }
 // Enemies our player must avoid
 var Enemy = function(x, y, spd) {
@@ -89,16 +102,7 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     ctx.font = "20px 'Press Start 2P'";
     ctx.fillText(score, 0,40);
-    if (lives === 3) {
-        ctx.drawImage(Resources.get('images/Heart.png'), 470, 0, 30, 50);
-        ctx.drawImage(Resources.get('images/Heart.png'), 440, 0, 30, 50);
-        ctx.drawImage(Resources.get('images/Heart.png'), 410, 0, 30, 50);
-    } else if (lives === 2) {
-        ctx.drawImage(Resources.get('images/Heart.png'), 470, 0, 30, 50);
-        ctx.drawImage(Resources.get('images/Heart.png'), 440, 0, 30, 50);
-    } else if (lives === 1) {
-        ctx.drawImage(Resources.get('images/Heart.png'), 470, 0, 30, 50);
-    }
+    calculateLives();
 };
 
 // Now write your own player class
@@ -156,18 +160,6 @@ let allEnemies = [
 ];
 
 //TODO: Add gems/hearts
-
-//TODO: Add hearts at to of screen to keep track of lives remaining
-
-//TODO: Add score function, keep track of score on top left of screen
-    // Score should go up each time player reaches water
-    // Score multiplier should go up each time player reaches water
-    // Enemy speed should go up each time player reaches water
-    // 4th enemy is a "rogue" and will not appear until a few "games" in, and
-    // his speed is much faster than the others.
-
-    
-    
 
 randLoc(enemyCols)
 // This listens for key presses and sends the keys to your
