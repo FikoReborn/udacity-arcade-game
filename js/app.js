@@ -82,6 +82,43 @@ function gamePad (event) {
     }
 }
 
+function generateItems(numItems) {
+    let items = [
+        'images/Rock.png',
+        'images/Star.png',
+        'images/Key.png',
+        'images/gem-green.png',
+        'images/gem-orange.png',
+        'images/gem-blue.png',
+        'images/Heart.png'
+    ]
+    let itemCoords = [
+        [15, 192],
+        [116, 192],
+        [227, 192],
+        [318, 192],
+        [419, 192],
+        [15, 270],
+        [116, 270],
+        [227, 270],
+        [318, 270],
+        [419, 270],
+        [15, 109],
+        [116, 109],
+        [227, 109],
+        [318, 109],
+        [419, 109]
+    ]
+    for (let i = 1; i <= numItems; i++) {
+        let itemInd = randLoc(items);
+        let itemCoordsInd = randLoc(itemCoords);
+        allItems = [];
+        allItems.push(new Item(itemCoords[itemCoordsInd][0], itemCoords[itemCoordsInd][1], items[itemInd]));
+        items.splice(itemInd, 1);
+        itemCoords.splice(itemCoordsInd, 1);
+    };
+}
+
 // Below are our classess
 
 // Enemies our player must avoid
@@ -140,6 +177,7 @@ Player.prototype.update = function() {
         gameNum += 1;
         findScore();
         resetBugs();
+        generateItems(3);
     }
 
 };
@@ -163,6 +201,20 @@ Player.prototype.handleInput = function(keyPressed) {
         this.x += 101;
     }
 }
+
+var Item = function(x, y, image) {
+    this.x = x;
+    this.y = y;
+    this.image = image;
+}
+
+Item.prototype.update = function() {
+
+}
+
+Item.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.image), this.x, this.y, 61, 103);
+}
 // Now instantiate your objectsrandLoc(enemyCols).
 // Place all enemy objects in an array called allEnemies
 // Now write your own player class
@@ -181,6 +233,8 @@ let allEnemies = [
     new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 100),
     new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 100)
 ];
+
+let allItems = [];
 
 //TODO: Add gems/hearts
 
