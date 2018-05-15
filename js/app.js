@@ -86,33 +86,31 @@ function generateItems(numItems) {
     let items = [
         'images/Rock.png',
         'images/Star.png',
-        'images/Key.png',
         'images/gem-green.png',
         'images/gem-orange.png',
         'images/gem-blue.png',
         'images/Heart.png'
     ]
     let itemCoords = [
-        [15, 192],
-        [116, 192],
-        [227, 192],
-        [318, 192],
-        [419, 192],
+        [15, 187],
+        [116, 187],
+        [217, 187],
+        [318, 187],
+        [419, 187],
         [15, 270],
         [116, 270],
-        [227, 270],
+        [217, 270],
         [318, 270],
         [419, 270],
-        [15, 109],
-        [116, 109],
-        [227, 109],
-        [318, 109],
-        [419, 109]
+        [15, 104],
+        [116, 104],
+        [217, 104],
+        [318, 104],
+        [419, 104]
     ]
-    for (let i = 1; i <= numItems; i++) {
+    for (let i = 1; i <= 3; i++) {
         let itemInd = randLoc(items);
         let itemCoordsInd = randLoc(itemCoords);
-        allItems = [];
         allItems.push(new Item(itemCoords[itemCoordsInd][0], itemCoords[itemCoordsInd][1], items[itemInd]));
         items.splice(itemInd, 1);
         itemCoords.splice(itemCoordsInd, 1);
@@ -177,7 +175,8 @@ Player.prototype.update = function() {
         gameNum += 1;
         findScore();
         resetBugs();
-        generateItems(3);
+        allItems = [];
+        generateItems();
     }
 
 };
@@ -209,7 +208,10 @@ var Item = function(x, y, image) {
 }
 
 Item.prototype.update = function() {
-
+    if (this.x - 16 === player.x && this.y - 36 === player.y) {
+        let itemUsed = allItems.indexOf(this);
+        allItems.splice(itemUsed, 1);
+    }
 }
 
 Item.prototype.render = function() {
