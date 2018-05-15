@@ -56,15 +56,10 @@ function resetBugs() {
 }
 
 function calculateLives() {
-        if (lives === 3) {
-        ctx.drawImage(Resources.get('images/Heart.png'), 470, 0, 30, 50);
-        ctx.drawImage(Resources.get('images/Heart.png'), 440, 0, 30, 50);
-        ctx.drawImage(Resources.get('images/Heart.png'), 410, 0, 30, 50);
-    } else if (lives === 2) {
-        ctx.drawImage(Resources.get('images/Heart.png'), 470, 0, 30, 50);
-        ctx.drawImage(Resources.get('images/Heart.png'), 440, 0, 30, 50);
-    } else if (lives === 1) {
-        ctx.drawImage(Resources.get('images/Heart.png'), 470, 0, 30, 50);
+    let heartPos = 470;
+    for (let i = 1; i <= lives; i++) {
+        ctx.drawImage(Resources.get('images/Heart.png'), heartPos, 0, 30, 50);
+        heartPos -= 30;
     }
 }
 
@@ -211,6 +206,22 @@ Item.prototype.update = function() {
     if (this.x - 16 === player.x && this.y - 36 === player.y) {
         let itemUsed = allItems.indexOf(this);
         allItems.splice(itemUsed, 1);
+        console.log(this.image);
+        if (this.image === 'images/Heart.png' && lives <= 5) {
+            lives += 1;
+        } else if (this.image === 'images/gem-green.png') {
+            realScore += 3000;
+        } else if (this.image === 'images/gem-blue.png') {
+            realScore += 2000;
+        } else if (this.image === 'images/gem-orange.png') {
+            realScore += 1000;
+        } else if (this.image === 'images/Star.png') {
+            realScore += 150;
+            allItems = [];
+            generateItems();
+        } else if (this.image === 'images/Rock.png') {
+            
+        }
     }
 }
 
