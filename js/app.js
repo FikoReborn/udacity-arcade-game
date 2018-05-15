@@ -5,7 +5,7 @@ let realScore = 0;
 let score = '00000' + realScore.toString();
 let gameNum = 1;
 let spdMultiplier = 100;
-let spdMultiplierRogue = 300;
+let spdMultiplierRogue = 200;
 
 // Global functions
 function findScore() {
@@ -24,35 +24,16 @@ function findScore() {
 }
 
 function resetBugs() {
-    if (gameNum <= 4) {
-        spdMultiplier += 100;
-        spdMultiplierRogue += 100;
+    if (spdMultiplier <= 300) {
+        spdMultiplier += 50;
+        spdMultiplierRogue += 50;
     }
-    if (gameNum < 20) {
-        allEnemies = [
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue, 'images/enemy-bug-rogue.png')
-        ];
-    } else if (gameNum < 50) {
-        allEnemies = [
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier, 'images/enemy-bug-rogue.png'),
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue),
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700, 'images/enemy-bug-rogue.png')
-        ];
-    } else {
-        allEnemies = [
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue, 'images/enemy-bug-rogue.png'),
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700, 'images/enemy-bug-rogue.png'),
-            new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 700, 'images/enemy-bug-rogue.png')
-        ];
-    }
+    allEnemies = [
+        new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
+        new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier), 
+        new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
+        new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue, 'images/enemy-bug-rogue.png')
+    ];
 }
 
 function calculateLives() {
@@ -220,7 +201,11 @@ Item.prototype.update = function() {
             allItems = [];
             generateItems();
         } else if (this.image === 'images/Rock.png') {
-            
+            if (realScore <= 3000) {
+                realScore = 0;
+            } else {
+                realScore -= 3000;
+            } 
         }
     }
 }
@@ -244,7 +229,6 @@ let allEnemies = [
     new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 100), 
     new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 100), 
     new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 100),
-    new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], 100)
 ];
 
 let allItems = [];
