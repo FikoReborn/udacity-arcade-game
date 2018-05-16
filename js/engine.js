@@ -94,6 +94,7 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+        score.update();
         allItems.forEach(function(items) {
             items.update();
         });
@@ -157,7 +158,9 @@ var Engine = (function(global) {
         });
 
         player.render();
-        
+        score.render();
+        lives.render();
+        gamepad.render();
         allItems.forEach(function(items) {
             items.render();
         });

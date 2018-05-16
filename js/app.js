@@ -1,28 +1,9 @@
 // Global variables
 const gameBoard = document.querySelector('canvas');
-let lives = 3;
-let realScore = 0;
-let score = '00000' + realScore.toString();
-let gameNum = 1;
 let spdMultiplier = 100;
 let spdMultiplierRogue = 200;
 
 // Global functions
-function findScore() {
-    realScore += 10 * gameNum;
-    if (realScore > 9 && realScore < 99) {
-        score = '0000' + realScore.toString();
-    } else if (realScore > 99 && realScore < 999) {
-        score = '000' + realScore.toString();
-    } else if (realScore > 999 && realScore < 9999) {
-        score = '00' + realScore.toString();
-    } else if (realScore > 9999 && realScore < 99999) {
-        score = '0' + realScore.toString();
-    } else if (realScore > 99999) {
-        score = realScore;
-    }
-}
-
 function resetBugs() {
     if (spdMultiplier <= 300) {
         spdMultiplier += 50;
@@ -34,15 +15,7 @@ function resetBugs() {
         new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplier),
         new Enemy(enemyCols[randLoc(enemyCols)], enemyRows[randLoc(enemyRows)], spdMultiplierRogue, 'images/enemy-bug-rogue.png')
     ];
-}
-
-function calculateLives() {
-    let heartPos = 470;
-    for (let i = 1; i <= lives; i++) {
-        ctx.drawImage(Resources.get('images/Heart.png'), heartPos, 0, 30, 50);
-        heartPos -= 30;
-    }
-}
+};
 
 function gamePad (event) {
     const xClick = event.clientX - this.offsetLeft;
@@ -56,7 +29,7 @@ function gamePad (event) {
     } else if (xClick >= 94 && xClick <= 120 && yClick >= 487 && yClick <= 543) {
         player.handleInput('right');
     }
-}
+};
 
 function generateItems(numItems) {
     let items = [
@@ -91,7 +64,7 @@ function generateItems(numItems) {
         items.splice(itemInd, 1);
         itemCoords.splice(itemCoordsInd, 1);
     };
-}
+};
 
 // Below are our classess
 
@@ -106,6 +79,7 @@ var Enemy = function(x, y, spd, sprite = 'images/enemy-bug.png') {
     this.x = x;
     this.y = y;
     this.spd = spd;
+    
 };
 
 // Update the enemy's position, required method for game
@@ -122,7 +96,7 @@ Enemy.prototype.update = function(dt) {
     if (this.y === player.y && this.x >= player.x - 61 && this.x <= player.x + 30) {
         player.x = 201;
         player.y = 400;
-        lives -= 1;
+        lives.value -= 1;
 
     }
 };
@@ -130,9 +104,7 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    ctx.font = "20px 'Press Start 2P'";
-    ctx.fillText(score, 0,40);
-    calculateLives();
+    // calculateLives();
 };
 
 // Now write your own player class
@@ -148,8 +120,7 @@ Player.prototype.update = function() {
     if (this.y === -15) {
         this.x = 201;
         this.y = 400;
-        gameNum += 1;
-        findScore();
+        score.value += 500;
         resetBugs();
         allItems = [];
         generateItems();
@@ -159,10 +130,6 @@ Player.prototype.update = function() {
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    ctx.drawImage(Resources.get('images/up_arrow.png'), 32, 448);
-    ctx.drawImage(Resources.get('images/down_arrow.png'), 32, 530);
-    ctx.drawImage(Resources.get('images/left_arrow.png'), -10, 490);
-    ctx.drawImage(Resources.get('images/right_arrow.png'), 73, 490);
 };
 
 Player.prototype.handleInput = function(keyPressed) {
@@ -175,51 +142,106 @@ Player.prototype.handleInput = function(keyPressed) {
     } else if (keyPressed === 'right' && this.x <= 304) {
         this.x += 101;
     }
-}
+};
 
 var Item = function(x, y, image) {
     this.x = x;
     this.y = y;
     this.image = image;
-}
+};
 
 Item.prototype.update = function() {
     if (this.x - 16 === player.x && this.y - 36 === player.y) {
         let itemUsed = allItems.indexOf(this);
         allItems.splice(itemUsed, 1);
-        console.log(this.image);
-        if (this.image === 'images/Heart.png' && lives <= 5) {
-            lives += 1;
+        if (this.image === 'images/Heart.png' && lives.value <= 5) {
+            lives.value += 1;
         } else if (this.image === 'images/gem-green.png') {
-            realScore += 3000;
+            score.value += 3000;
         } else if (this.image === 'images/gem-blue.png') {
-            realScore += 2000;
+            score.value += 2000;
         } else if (this.image === 'images/gem-orange.png') {
-            realScore += 1000;
+            score.value += 1000;
         } else if (this.image === 'images/Star.png') {
-            realScore += 150;
+            score.value += 150;
             allItems = [];
             generateItems();
         } else if (this.image === 'images/Rock.png') {
-            if (realScore <= 3000) {
-                realScore = 0;
+            if (score.value <= 3000) {
+                score.value = 0;
             } else {
-                realScore -= 3000;
+                score.value -= 3000;
             } 
         }
     }
-}
+};
 
 Item.prototype.render = function() {
     ctx.drawImage(Resources.get(this.image), this.x, this.y, 61, 103);
-}
+};
+
+var Score = function() {
+    this.value = 0;
+    this.display = '0000000' + this.value.toString();
+};
+
+Score.prototype.update = function() {
+    if (this.value > 9 && this.value < 99) {
+        this.display = '000000' + this.value.toString();
+    } else if (this.value > 99 && this.value < 999) {
+        this.display = '00000' + this.value.toString();
+    } else if (this.value > 999 && this.value < 9999) {
+        this.display = '0000' + this.value.toString();
+    } else if (this.value > 9999 && this.value < 99999) {
+        this.display = '000' + this.value.toString();
+    } else if (this.value > 99999 && this.value < 999999) {
+        this.display = '00' + this.value.toString();
+    } else if (this.value > 999999 && this.value < 9999999) {
+        this.display = '0' + this.value.toString();
+    } else if (this.value > 9999999) {
+        this.display = this.value;
+    }
+};
+
+Score.prototype.render = function() {
+    ctx.font = "20px 'Press Start 2P'";
+    ctx.fillText(this.display, 0,40);
+};
+
+var Lives = function() {
+    this.value = 3;
+    this.pos = 470;
+};
+
+Lives.prototype.render = function() {
+    let pos = this.pos;
+    for (let i = 1; i <= this.value; i++) {
+        ctx.drawImage(Resources.get('images/Heart.png'), pos, 0, 30, 50);
+        pos = pos - 30;
+    }
+};
+
+var Gamepad = function() {
+    this.upArrow = 'images/up_arrow.png';
+    this.downArrow = 'images/down_arrow.png';
+    this.rightArrow = 'images/right_arrow.png';
+    this.leftArrow = 'images/left_arrow.png';
+};
+
+Gamepad.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.upArrow), 32, 448);
+    ctx.drawImage(Resources.get(this.downArrow), 32, 530);
+    ctx.drawImage(Resources.get(this.leftArrow), -10, 490);
+    ctx.drawImage(Resources.get(this.rightArrow), 73, 490);
+};
+
 // Now instantiate your objectsrandLoc(enemyCols).
 // Place all enemy objects in an array called allEnemies
 // Now write your own player class
 // Place the player object in a variable called player
 function randLoc(array) {
     return Math.floor(Math.random() * array.length);
-}
+};
 
 const player = new Player(201, 400);
 const enemyRows = [68, 151, 234];
@@ -232,6 +254,9 @@ let allEnemies = [
 ];
 
 let allItems = [];
+let lives = new Lives();
+const score = new Score();
+const gamepad = new Gamepad();
 
 //TODO: Add gems/hearts
 
