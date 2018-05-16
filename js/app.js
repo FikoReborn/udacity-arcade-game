@@ -45,14 +45,14 @@ function resetBugs() {
 function gamePad (event) {
     const xClick = event.clientX - this.offsetLeft;
     const yClick = event.clientY - this.offsetTop;
-    if (xClick >= 37 && xClick <= 89 && yClick >= 467 && yClick <= 491) {
+    if (xClick >= player.x && xClick <= player.x + 100 && yClick >= player.y - 15 && yClick <= player.y + 65) {
         player.handleInput('up');
-    } else if (xClick >= 0 && xClick <= 37 && yClick >= 501 && yClick <= 548) {
+    } else if (xClick >= player.x - 98 && xClick <= player.x && yClick >= player.y + 70 && yClick <= player.y + 147) {
         player.handleInput('left');
-    } else if (xClick >= 38 && xClick <= 92 && yClick >= 548 && yClick <= 580) {
-        player.handleInput('down');
-    } else if (xClick >= 94 && xClick <= 120 && yClick >= 487 && yClick <= 543) {
+    } else if (xClick >= player.x + 102 && xClick <= player.x + 200 && yClick >= player.y + 70 && yClick <= player.y + 147) {
         player.handleInput('right');
+    } else if (xClick >= player.x && xClick <= player.x + 100 && yClick >= player.y + 153 && yClick <= player.y + 230) {
+        player.handleInput('down');
     }
 };
 
@@ -162,9 +162,11 @@ Player.prototype.reset = function() {
     if (lives.value < 0) {
         let resetScreen = document.createElement('div');
         resetScreen.classList = 'modal';
-        resetScreen.innerHTML = '<p>Game Over</p>' +
-                                '<p class="score">Final Score: ' + score.value + '</p>' +
-                                '<button>Play Again?</button>';
+        resetScreen.innerHTML = '<div class="game-over">' +
+                                '<div class="go-section"><p>Game Over</p></div>' +
+                                '<div class="go-section"><p class="score">Final Score: ' + score.value + '</p></div>' +
+                                '<div class="go-section"><button>Play Again?</button></div>' +
+                                '</div>';
         document.body.appendChild(resetScreen);
         lives.value = 3;
         player.x = 201;
@@ -268,20 +270,6 @@ Lives.prototype.render = function() {
     }
 };
 
-var Gamepad = function() {
-    this.upArrow = 'images/up_arrow.png';
-    this.downArrow = 'images/down_arrow.png';
-    this.rightArrow = 'images/right_arrow.png';
-    this.leftArrow = 'images/left_arrow.png';
-};
-
-Gamepad.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.upArrow), 32, 448);
-    ctx.drawImage(Resources.get(this.downArrow), 32, 530);
-    ctx.drawImage(Resources.get(this.leftArrow), -10, 490);
-    ctx.drawImage(Resources.get(this.rightArrow), 73, 490);
-};
-
 // Now instantiate your objectsrandLoc(enemyCols).
 // Place all enemy objects in an array called allEnemies
 // Now write your own player class
@@ -303,7 +291,6 @@ let allEnemies = [
 let allItems = [];
 let lives = new Lives();
 const score = new Score();
-const gamepad = new Gamepad();
 
 charSelect();
 

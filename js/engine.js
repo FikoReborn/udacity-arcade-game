@@ -162,7 +162,6 @@ var Engine = (function(global) {
         player.render();
         score.render();
         lives.render();
-        gamepad.render();
         allItems.forEach(function(items) {
             items.render();
         });
