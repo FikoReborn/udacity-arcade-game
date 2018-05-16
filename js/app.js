@@ -1,9 +1,29 @@
+'use strict';
+
 // Global variables
 const gameBoard = document.querySelector('canvas');
 let spdMultiplier = 100;
 let spdMultiplierRogue = 200;
 
 // Global functions
+function charSelect() {
+    let startScreen = document.createElement('div');
+    startScreen.classList = 'modal';
+    startScreen.innerHTML = '<p>Character Select</p>' +
+                            '<div class="char-select">' +
+                            '<div class="char"><img src="images/char-boy.png" alt="Character Boy"><p>James</p></div>' +
+                            '<div class="char"><img src="images/char-cat-girl.png" alt="Character Cat Girl"><p>Ezra</p></div>' +
+                            '<div class="char"><img src="images/char-horn-girl.png" alt="Character Horn Girl"><p>Eva</p></div>' +
+                            '<div class="char"><img src="images/char-pink-girl.png" alt="Character Pink Girl"><p>Layla</p></div>' +
+                            '<div class="char"><img src="images/char-princess-girl.png" alt="Character Princess Girl"><p>Susan</p></div>' +
+                            '</div>';
+    document.body.appendChild(startScreen);
+    document.querySelector('.char-select').addEventListener('click', function(event) {
+        player.sprite = event.target.getAttribute('src');
+        startScreen.remove();
+    });
+}
+
 function resetBugs() {
     if (spdMultiplier <= 300) {
         spdMultiplier += 50;
@@ -114,6 +134,7 @@ var Player = function(x, y) {
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
+    this.gameStart = 'no';
 };
 
 Player.prototype.update = function() {
@@ -134,14 +155,22 @@ Player.prototype.render = function() {
 
 Player.prototype.reset = function() {
     if (lives.value < 0) {
-        // player.x = 201;
-        // player.y = 400;
-        // score.value = 0;
-        // score.display = '0000000' + score.value.toString();
-        // lives.value = 3;
-        // allItems = [];
-        ctx.fillStyle = "#000000";
-        ctx.fillRect(0, 0, 505, 606);
+        let resetScreen = document.createElement('div');
+        resetScreen.classList = 'modal';
+        resetScreen.innerHTML = '<p>Game Over</p>' +
+                                '<p class="score">Final Score: ' + score.value + '</p>' +
+                                '<button>Play Again?</button>';
+        document.body.appendChild(resetScreen);
+        lives.value = 3;
+        player.x = 201;
+        player.y = 400;
+        score.value = 0;
+        score.display = '0000000' + score.value.toString();
+        allItems = [];
+        document.querySelector('button').addEventListener('click', () => {
+            resetScreen.remove();
+            charSelect();
+        });
     }
 };
 
@@ -271,7 +300,7 @@ let lives = new Lives();
 const score = new Score();
 const gamepad = new Gamepad();
 
-//TODO: Add gems/hearts
+charSelect();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

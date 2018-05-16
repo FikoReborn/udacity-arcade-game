@@ -13,6 +13,8 @@
  * writing app.js a little simpler to work with.
  */
 
+ 'use strict';
+
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -157,7 +159,6 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-
         player.render();
         score.render();
         lives.render();
@@ -192,6 +193,10 @@ var Engine = (function(global) {
         'images/Key.png',
         'images/Star.png',
         'images/char-boy.png',
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png',
         'images/Heart.png',
         'images/up_arrow.png',
         'images/right_arrow.png',
