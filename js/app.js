@@ -132,6 +132,19 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+Player.prototype.reset = function() {
+    if (lives.value < 0) {
+        // player.x = 201;
+        // player.y = 400;
+        // score.value = 0;
+        // score.display = '0000000' + score.value.toString();
+        // lives.value = 3;
+        // allItems = [];
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, 505, 606);
+    }
+};
+
 Player.prototype.handleInput = function(keyPressed) {
     if (keyPressed === 'up' && this.y >= 68) {
         this.y -= 83;

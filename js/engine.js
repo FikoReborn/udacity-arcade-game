@@ -46,6 +46,7 @@ var Engine = (function(global) {
          */
         update(dt);
         render();
+        reset();
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -171,7 +172,7 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        player.reset();
     }
 
     /* Go ahead and load all of the images we know we're going to need to
@@ -195,7 +196,8 @@ var Engine = (function(global) {
         'images/up_arrow.png',
         'images/right_arrow.png',
         'images/down_arrow.png',
-        'images/left_arrow.png'
+        'images/left_arrow.png',
+        'images/background.png'
     ]);
     Resources.onReady(init);
 
