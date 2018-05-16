@@ -11,16 +11,21 @@ function charSelect() {
     startScreen.classList = 'modal';
     startScreen.innerHTML = '<p>Character Select</p>' +
                             '<div class="char-select">' +
-                            '<div class="char"><img src="images/char-boy.png" alt="Character Boy"><p>James</p></div>' +
-                            '<div class="char"><img src="images/char-cat-girl.png" alt="Character Cat Girl"><p>Ezra</p></div>' +
-                            '<div class="char"><img src="images/char-horn-girl.png" alt="Character Horn Girl"><p>Eva</p></div>' +
-                            '<div class="char"><img src="images/char-pink-girl.png" alt="Character Pink Girl"><p>Layla</p></div>' +
-                            '<div class="char"><img src="images/char-princess-girl.png" alt="Character Princess Girl"><p>Susan</p></div>' +
+                            '<div class="char"><img src="images/char-boy.png" alt="Character Boy" class="char-image"><p>James</p></div>' +
+                            '<div class="char"><img src="images/char-cat-girl.png" alt="Character Cat Girl" class="char-image"><p>Ezra</p></div>' +
+                            '<div class="char"><img src="images/char-horn-girl.png" alt="Character Horn Girl" class="char-image"><p>Eva</p></div>' +
+                            '<div class="char"><img src="images/char-pink-girl.png" alt="Character Pink Girl" class="char-image"><p>Layla</p></div>' +
+                            '<div class="char"><img src="images/char-princess-girl.png" alt="Character Princess Girl" class="char-image"><p>Susan</p></div>' +
                             '</div>';
     document.body.appendChild(startScreen);
     document.querySelector('.char-select').addEventListener('click', function(event) {
-        player.sprite = event.target.getAttribute('src');
-        startScreen.remove();
+        if (event.target.classList[0] === 'char') {
+            player.sprite = event.target.firstElementChild.getAttribute('src');
+            startScreen.remove();
+        } else if (event.target.classList[0] === 'char-image') {
+            player.sprite = event.target.getAttribute('src');
+            startScreen.remove();
+        }
     });
 }
 
