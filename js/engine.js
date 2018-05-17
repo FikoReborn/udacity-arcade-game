@@ -189,18 +189,13 @@ var Engine = (function(global) {
         'images/gem-green.png',
         'images/gem-orange.png',
         'images/Rock.png',
-        'images/Key.png',
         'images/Star.png',
         'images/char-boy.png',
         'images/char-cat-girl.png',
         'images/char-horn-girl.png',
         'images/char-pink-girl.png',
         'images/char-princess-girl.png',
-        'images/Heart.png',
-        'images/up_arrow.png',
-        'images/right_arrow.png',
-        'images/down_arrow.png',
-        'images/left_arrow.png'
+        'images/Heart.png'
     ]);
     Resources.onReady(init);
 
