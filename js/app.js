@@ -4,6 +4,42 @@
 const gameBoard = document.querySelector('canvas');
 let spdMultiplier = 100;
 let spdMultiplierRogue = 200;
+const bgm = new Audio('sounds/bgm.mp3');
+bgm.loop = true;
+
+const effects = new Howl({
+    src: ['sounds/effects.ogg', 'sounds/effects.m4a', 'sounds/effects.mp3', 'sounds/effects.ac3'],
+    'sprite': {
+      'bug-damage': [
+        0,
+        188.2312925170068
+      ],
+      'gem': [
+        2000,
+        307.3469387755101
+      ],
+      'star': [
+        4000,
+        1012.6757369614517
+      ],
+      'rock': [
+        7000,
+        1000
+      ],
+      'heart': [
+        9000,
+        495.19274376417144
+      ],
+      'gameover': [
+        11000,
+        2703.7188208616776
+      ],
+      'victory': [
+          15000,
+          1100.0000000000014
+      ]
+    }
+  });
 
 // Global functions
 function charSelect() {
@@ -22,9 +58,11 @@ function charSelect() {
         if (event.target.classList[0] === 'char') {
             player.sprite = event.target.firstElementChild.getAttribute('src');
             startScreen.remove();
+            bgm.play();
         } else if (event.target.classList[0] === 'char-image') {
             player.sprite = event.target.getAttribute('src');
             startScreen.remove();
+            bgm.play();
         }
     });
 }
@@ -119,6 +157,7 @@ Enemy.prototype.update = function(dt) {
         this.y = enemyRows[randLoc(enemyRows)];
     }
     if (this.y === player.y && this.x >= player.x - 61 && this.x <= player.x + 30) {
+        effects.play('bug-damage');
         player.x = 201;
         player.y = 400;
         lives.value -= 1;
@@ -144,6 +183,7 @@ var Player = function(x, y) {
 
 Player.prototype.update = function() {
     if (this.y === -15) {
+        effects.play('victory');
         this.x = 201;
         this.y = 400;
         score.value += 500;
@@ -160,6 +200,9 @@ Player.prototype.render = function() {
 
 Player.prototype.reset = function() {
     if (lives.value < 0) {
+        bgm.pause();
+        bgm.currentTime = 0;
+        effects.play('gameover');
         let resetScreen = document.createElement('div');
         resetScreen.classList = 'modal';
         resetScreen.innerHTML = '<div class="game-over">' +
@@ -204,18 +247,24 @@ Item.prototype.update = function() {
         let itemUsed = allItems.indexOf(this);
         allItems.splice(itemUsed, 1);
         if (this.image === 'images/Heart.png' && lives.value <= 5) {
+            effects.play('heart');
             lives.value += 1;
         } else if (this.image === 'images/gem-green.png') {
+            effects.play('gem');
             score.value += 3000;
         } else if (this.image === 'images/gem-blue.png') {
+            effects.play('gem');
             score.value += 2000;
         } else if (this.image === 'images/gem-orange.png') {
+            effects.play('gem');
             score.value += 1000;
         } else if (this.image === 'images/Star.png') {
+            effects.play('star');
             score.value += 150;
             allItems = [];
             generateItems();
         } else if (this.image === 'images/Rock.png') {
+            effects.play('rock');
             if (score.value <= 3000) {
                 score.value = 0;
             } else {
