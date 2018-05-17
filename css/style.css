@@ -1,9 +1,17 @@
+
 body {
     text-align: center;
     background-color: #000;
     color: #fff;
     font-family: 'Press Start 2P';
+    user-select: none;
 }
+
+/*                      *
+ *                      *
+ * Basic Modal used for *
+ * Game Over and        *
+ * Character Select     */
 
 .modal {
     width: 505px;
@@ -17,34 +25,34 @@ body {
     left: 0;
 }
 
-.modal p {
-    padding: 0;
-    margin: 30px 0 0 0;
-}
+/*                      *
+ *                      *
+ * Character Select     *
+ * Screen               *
+ *                      */
 
-.char-select {
+.modal .char-select {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     width: 100%;
 }
 
-.char {
-    width: 33%;      1100.0000000000014
-
+.modal .char-select .char {
+    width: 33%;
     max-width: 100%;
     height: 230px;
     margin: auto;
     font-size: 20px;
 }
 
-.char:hover {
+.modal .char-select .char:hover {
     background-color: #fff;
     color: #000;
     cursor: pointer;
 }
 
-.char-image {
+.modal .char-select .char .char-image {
     user-drag: none;
     user-select: none;
     -moz-user-select: none;
@@ -53,7 +61,35 @@ body {
     -ms-user-select: none;
 }
 
-button {
+.modal .char-text, .modal .char-select .char .char-text {
+    padding: 0;
+    margin: 30px 0 0 0;
+}
+
+/*                      *
+ *                      *
+ * Game Over Screen     *
+ *                      *
+ *                      */
+
+.modal .game-over {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+}
+
+.modal .game-over .go-section {
+    width: 100%;
+    height: 33%;
+}
+
+.modal .game-over .go-section .score {
+    font-size: 20px;
+}
+
+.modal .game-over .go-section .play-again-button {
     background: none;
     border: none;
     font-family: 'Press Start 2P';
@@ -63,72 +99,22 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.modal .game-over .go-section .play-again-button:hover {
     background-color: #fff;
     color: #000;
 }
 
-button:focus {
+.modal .game-over .go-section .play-again-button:focus {
     outline: none;
     background-color: #fff;
     color: #000;
 }
 
-/* Game Over Screen */
-
-.game-over {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    height: 100%;
-    min-height: 100%;
-}
-
-.go-section {
-    width: 100%;
-    height: 33%;
-}
-
-.score {
-    font-size: 20px;
-}
-
-.gameboard {
-    position: relative;
-    width: 505px;
-}
-
-h1 {
-    font-family: 'Press Start 2P', cursive;
-
-}
-
-.legend-image {
-    position: relative;
-    top: 12px;
-    width: 30px;
-}
-
-.inner-wrapper {
-    max-width: 505px;
-    flex-grow: 1;
-    align-items: left;
-    float: right;
-}
-
-.legend {
-    max-width: 600px;
-    flex-grow: 1;
-    text-align: left;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 50px;
-}
-
-.legend-column {
-    flex-grow: 1;
-    width: 100%;
-}
+/*                      *
+ *                      *
+ * Main Page Styles     *
+ *                      *
+ *                      */
 
 .wrapper {
     display: flex;
@@ -138,19 +124,68 @@ h1 {
     min-width: 100%;
 }
 
-.music-toggle {
+/*                      *
+ *                      *
+ * Content associated   *
+ * with gameboard       *
+ *                      */ 
+
+.wrapper .inner-wrapper {
+    max-width: 505px;
+    flex-grow: 1;
+    align-items: left;
+    float: right;
+}
+
+.wrapper .inner-wrapper .header {
+    font-family: 'Press Start 2P', cursive;
+
+}
+
+.wrapper .inner-wrapper .gameboard {
+    position: relative;
+    width: 505px;
+}
+
+.wrapper .inner-wrapper .music-toggle {
     user-select: none;
     cursor: pointer;
 }
 
-.music-toggle:hover {
+.wrapper .inner-wrapper .music-toggle:hover {
     text-shadow: 0 0 3px yellow;
 }
 
-.music-toggle.on {
+.wrapper .inner-wrapper .music-toggle.on {
     opacity: 1;
 }
 
-.music-toggle.off {
+.wrapper .inner-wrapper .music-toggle.off {
     opacity: 0.3;
+}
+
+/*                      *
+ *                      *
+ * Legend/instructions  *
+ *                      *
+ *                      */
+
+.wrapper .legend {
+    max-width: 600px;
+    flex-grow: 1;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px;
+}
+
+.wrapper .legend .legend-column {
+    flex-grow: 1;
+    width: 100%;
+}
+
+.wrapper .legend .legend-column .legend-image {
+    position: relative;
+    top: 12px;
+    width: 30px;
 }
