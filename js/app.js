@@ -81,8 +81,10 @@ function resetBugs() {
 };
 
 function gamePad (event) {
-    const xClick = event.clientX - this.offsetLeft;
-    const yClick = event.clientY - this.offsetTop;
+    const xClick = event.offsetX;
+    const yClick = event.offsetY;
+    console.log(xClick, yClick);
+    console.log(event.offsetX);
     if (xClick >= player.x && xClick <= player.x + 100 && yClick >= player.y - 15 && yClick <= player.y + 65) {
         player.handleInput('up');
     } else if (xClick >= player.x - 98 && xClick <= player.x && yClick >= player.y + 70 && yClick <= player.y + 147) {
