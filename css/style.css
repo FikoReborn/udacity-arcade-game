@@ -137,3 +137,20 @@ h1 {
     width: 600px;
     min-width: 100%;
 }
+
+.music-toggle {
+    user-select: none;
+    cursor: pointer;
+}
+
+.music-toggle:hover {
+    text-shadow: 0 0 3px yellow;
+}
+
+.music-toggle.on {
+    opacity: 1;
+}
+
+.music-toggle.off {
+    opacity: 0.3;
+}

@@ -2,6 +2,8 @@
 
 // Global variables
 const gameBoard = document.querySelector('canvas');
+const musicToggle = document.querySelector('.music-toggle');
+
 let spdMultiplier = 100;
 let spdMultiplierRogue = 200;
 const bgm = new Audio('sounds/bgm.mp3');
@@ -58,11 +60,15 @@ function charSelect() {
         if (event.target.classList[0] === 'char') {
             player.sprite = event.target.firstElementChild.getAttribute('src');
             startScreen.remove();
-            bgm.play();
+            if (musicToggle.classList[1] === 'on') {
+                bgm.play();
+            }
         } else if (event.target.classList[0] === 'char-image') {
             player.sprite = event.target.getAttribute('src');
             startScreen.remove();
-            bgm.play();
+            if (musicToggle.classList[1] === 'on') {
+                bgm.play();
+            }
         }
     });
 }
@@ -360,3 +366,20 @@ document.addEventListener('keyup', function(e) {
 });
 
 gameBoard.addEventListener('click', gamePad);
+
+musicToggle.addEventListener('click', () => {
+    if (musicToggle.classList[1] === 'on') {
+        musicToggle.classList.remove('on');
+        musicToggle.classList.add('off');
+        bgm.pause();
+        bgm.currentTime = 0;
+        musicToggle.innerHTML = '<i class="fas fa-music"></i> Music: OFF';
+    } else {
+        musicToggle.classList.remove('off');
+        musicToggle.classList.add('on');
+        musicToggle.innerHTML = '<i class="fas fa-music"></i> Music: ON';
+        if (document.querySelector('.char-select') === null && document.querySelector('.game-over') === null) {
+            bgm.play();
+        }
+    }
+});
