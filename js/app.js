@@ -212,7 +212,7 @@ Player.prototype.reset = function() {
                                 '<div class="go-section"><p class="score">Final Score: ' + score.value + '</p></div>' +
                                 '<div class="go-section"><button>Play Again?</button></div>' +
                                 '</div>';
-        document.body.appendChild(resetScreen);
+        document.querySelector('.gameboard').appendChild(resetScreen);
         lives.value = 3;
         player.x = 201;
         player.y = 400;
