@@ -87,17 +87,17 @@ function resetBugs() {
 };
 
 function gamePad (event) {
+    const getCanvasOffset = gameBoard.getBoundingClientRect();
     const xClick = event.offsetX;
-    const yClick = event.offsetY;
-    console.log(xClick, yClick);
-    console.log(event.offsetX);
-    if (xClick >= player.x && xClick <= player.x + 100 && yClick >= player.y - 15 && yClick <= player.y + 65) {
+    const yClick = event.offsetY - getCanvasOffset.top;
+    console.log(xClick + ' ' + yClick);
+    if (yClick <= player.y) {
         player.handleInput('up');
-    } else if (xClick >= player.x - 98 && xClick <= player.x && yClick >= player.y + 70 && yClick <= player.y + 147) {
+    } else if (xClick <= player.x) {
         player.handleInput('left');
-    } else if (xClick >= player.x + 102 && xClick <= player.x + 200 && yClick >= player.y + 70 && yClick <= player.y + 147) {
+    } else if (xClick >= player.x + 101) {
         player.handleInput('right');
-    } else if (xClick >= player.x && xClick <= player.x + 100 && yClick >= player.y + 153 && yClick <= player.y + 230) {
+    } else if (yClick >= player.y + 153) {
         player.handleInput('down');
     }
 };
@@ -382,4 +382,9 @@ musicToggle.addEventListener('click', () => {
             bgm.play();
         }
     }
+});
+
+gameBoard.addEventListener('mousemove', function() {
+    let el = gameBoard.getBoundingClientRect();
+    console.log(event.offsetY - el.top + ' ' + player.y);
 });
