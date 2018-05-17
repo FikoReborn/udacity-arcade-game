@@ -4,11 +4,32 @@
     <meta charset="UTF-8">
     
     <title>Effective JavaScript: Frogger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.12/howler.core.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <main class="wrapper">
+        <section class="inner-wrapper">
+            <div class="header"><h1>Frogger-like Clone</h1></div>
+            <div class="gameboard"></div>
+        </section>
+        <aside class="legend">
+            <div class="legend-column">
+                <p><img src="images/gem-orange.png" alt="Orange Gem" class="legend-image">: 1000 pts</p>
+                <p><img src="images/gem-blue.png" alt="Blue Gem" class="legend-image">: 2000 pts</p>
+                <p><img src="images/gem-green.png" alt="Green Gem" class="legend-image">: 3000 pts</p>
+                <p><img src="images/Heart.png" alt="Heart" class="legend-image">: Replenish 1 Heart</p>
+                <p><img src="images/Star.png" alt="Star" class="legend-image">: Reset all items on board</p>
+                <p><img src="images/Rock.png" alt="Rock" class="legend-image">: LOSE 3000 pts (avoid these)</p>
+            </div>
+            <h3>Instructions:</h3>
+            <p>Make your way to the water without getting hit by bugs. Try to get as many gems as possible, avoid the rocks, and use stars if you so choose. Each time you reach the water, but speed increases until a certain cap is reached! Aim for a high score! You will start with 3 hearts, and lose one each time you are hit. Maximum hearts attainable is 5. </p>
+        </aside>
+    </div>
     <script src="js/resources.js"></script>
     <script src="js/engine.js"></script>
     <script src="js/app.js"></script>

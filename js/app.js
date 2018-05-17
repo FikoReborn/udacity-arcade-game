@@ -53,7 +53,7 @@ function charSelect() {
                             '<div class="char"><img src="images/char-pink-girl.png" alt="Character Pink Girl" class="char-image"><p>Layla</p></div>' +
                             '<div class="char"><img src="images/char-princess-girl.png" alt="Character Princess Girl" class="char-image"><p>Susan</p></div>' +
                             '</div>';
-    document.body.appendChild(startScreen);
+    document.querySelector('.gameboard').appendChild(startScreen);
     document.querySelector('.char-select').addEventListener('click', function(event) {
         if (event.target.classList[0] === 'char') {
             player.sprite = event.target.firstElementChild.getAttribute('src');
@@ -302,6 +302,7 @@ Score.prototype.update = function() {
 };
 
 Score.prototype.render = function() {
+    ctx.fillStyle = "#FFFFFF";
     ctx.font = "20px 'Press Start 2P'";
     ctx.fillText(this.display, 0,40);
 };
