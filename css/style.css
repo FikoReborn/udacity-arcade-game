@@ -122,6 +122,7 @@ h1 {
     text-align: left;
     display: flex;
     flex-wrap: wrap;
+    padding: 50px;
 }
 
 .legend-column {
@@ -133,4 +134,6 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    width: 600px;
+    min-width: 100%;
 }
