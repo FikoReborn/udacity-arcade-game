@@ -2,8 +2,8 @@
 
 ## Table of Contents
 
-* [About this Project](#About this Project)
-* [How to Run this Game](#How to Run this Game)
+* [About this Project](#about-this-project)
+* [How to Run this Game](#how-to-run-this-game)
 * [Instructions](#instructions)
 * [Dependencies](#dependencies)
 * [Contributing](#contributing)
