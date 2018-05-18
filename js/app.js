@@ -57,11 +57,11 @@ function toggleMusic(event) {
         musicToggleContainer.classList.remove('on');
         musicToggleContainer.classList.add('off');
         bgm.pause();
-        musicToggleContainer.innerHTML = '<i class="fas fa-music"></i> Music: OFF';
+        musicToggleContainer.innerHTML = '<i class="fas fa-music"></i> Ambience: OFF';
     } else {
         musicToggleContainer.classList.remove('off');
         musicToggleContainer.classList.add('on');
-        musicToggleContainer.innerHTML = '<i class="fas fa-￼music"></i> Music: ON';
+        musicToggleContainer.innerHTML = '<i class="fas fa-￼music"></i> Ambience: ON';
         // Only play music right now if the character selec￼t and game over screens
         // are not showing￼
         if (document.querySelector('.char-select') === null && document.querySelector('.game-over') === null) {
@@ -335,7 +335,7 @@ Item.prototype.update = function () {
         let itemUsed = allItems.indexOf(this);
         allItems.splice(itemUsed, 1);
         // Apply bonuses depending on item used and play appropriate sound sprite
-        if (this.image === 'images/Heart.png' && lives.value <= 5) {
+        if (this.image === 'images/Heart.png' && lives.value < 5) {
             effects.play('heart');
             lives.value += 1;
         } else if (this.image === 'images/gem-green.png') {

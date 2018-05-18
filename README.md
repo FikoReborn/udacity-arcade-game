@@ -1,6 +1,45 @@
-frontend-nanodegree-arcade-game
-===============================
+# Frogger Arcade Game Clone
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+## Table of Contents
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+* [Instructions](#instructions)
+* [Dependencies](#dependencies)
+* [Contributing](#contributing)
+
+## About this Project
+Remember the retro game Frogger? This is inspired by that game, with different sprites.  This project is part of the Udacity Front-End Development Nanodegree. Sprites are provided by Udacity, sounds are royalty free from freesound.org.
+
+The base code provided a function to control the player via use of the directional keys on your keyboard, but in an attempt to make it mobile-friendly, I have implemented a mouse click listener, so you can either use the mouse or the touch screen on a mobile device. 
+
+Overall, I had a ton of fun working on this!
+
+## Instructions
+
+  The game is pretty simple. After you choose your character, your objective is to just get to the water on the other end of the map.  You can collect items that randomly appear on the board after your first turn. You start with 3 lives (hearts on top right of the screen), and you can obtain a maximum of 5 hearts. If you are hit by an enemy, you will be brought back to your starting position and your lives will decrease by 1. When you have no hearts left, you are on your last turn and it is game over if you are hit after that point. 
+
+  If you reach the water, you will also reset to your starting position, but your lives will remain unchanged and you will gain 500 points. Points are displayed on the top left of the screen. Enemy speed will increase marginally each turn until they reach a predetermined cap (for balancing purposes). Also take note, after your first turn, a "rogue" enemy will appear on the map. This one is blue colored and is much faster than his comrades. 
+
+  Below are bonuses for items obtained:
+
+  - **Orange Gem**: 1000 points
+  - **Blue Gem**: 2000 points
+  - **Green Gem**: 3000 points
+  - **Star**: Resets all items on screen (you probably want to get this one last)
+  - **Rock**: LOSE 3000 points (you probably want to avoid this)
+  - **Heart**: Replenish 1 life
+
+## Dependencies
+
+- **css/**
+    - **style.css** - Styles for game page.
+- **img/** - Folder holding the images used for game.
+- **js/**
+    - **app.js** - Javascript file for app - this is where most of my code resides.
+    - **engine.js** - Game engine - Mostly untouched but I added a few small things.
+    - **resources.js** - Image loading file, I haven't touched this at all.
+- **sounds** - Folder holding the sounds used for the game.
+- **index.html** - HTML file used to run the game
+
+## Contributing
+
+This is just a project right now, so until it is reviewed, I will not be accepting any pull requests. 
