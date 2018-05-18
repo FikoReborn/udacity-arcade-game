@@ -82,7 +82,7 @@ var Enemy = function (spd, maxSpd, id, sprite = 'images/enemy-bug.png') {
     // const enemyRows = [68, 151, 234];
     // const enemyCols = [-800, -600, -500, -400, -300, -200, -100];
     const yArray = [68, 151, 234];
-    this.x = Math.floor(Math.random() * 8) * 100 - 1000;
+    this.x = Math.floor(Math.random() * 4) * 100 - 1000;
     this.y = yArray[randInd(yArray)];
 };
 
@@ -105,8 +105,7 @@ Enemy.prototype.update = function (dt) {
         effects.play('bug-damage');
         player.x = 201;
         player.y = 400;
-        this.x = Math.floor(Math.random() * 10) * 100 - 1001;
-        this.y = this.y[randInd(this.y)];
+        allEnemies.forEach(enemy => enemy.reset());
         lives.value -= 1;
     }
 };
@@ -120,7 +119,7 @@ Enemy.prototype.reset = function () {
     // Reset for when player reaches water
     // First increase speed by 50
     if (this.spd <= this.maxSpd) {
-        this.spd += 50;
+        this.spd += 10;
     }
     // Push "rogue" bug if this is the player's first turn
     if (allEnemies.length === 3) {
@@ -150,7 +149,6 @@ Player.prototype.update = function () {
         this.y = 400;
         score.value += 500;
         allEnemies.forEach(enemy => enemy.reset());
-        allItems = [];
         this.generateItems();
     }
 
@@ -252,6 +250,7 @@ Player.prototype.reset = function () {
 };
 
 Player.prototype.generateItems = function () {
+    allItems = [];
     let items = [
         'images/Rock.png',
         'images/Star.png',
@@ -416,9 +415,9 @@ Lives.prototype.render = function () {
 const player = new Player(201, 400);
 
 let allEnemies = [
-    new Enemy(100, 300, 0),
-    new Enemy(100, 300, 1),
-    new Enemy(100, 300, 2)
+    new Enemy(200, 300, 0),
+    new Enemy(200, 300, 1),
+    new Enemy(200, 300, 2)
     // new Enemy(enemyCols[randInd(enemyCols)], enemyRows[randInd(enemyRows)], spdMultiplierRogue, 'images/enemy-bug-rogue.png')
 ];
 
