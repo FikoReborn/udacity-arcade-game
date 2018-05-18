@@ -151,10 +151,10 @@ function gameOver () {
         score.display = '0000000' + score.value.toString();
         allItems = [];
         allEnemies = [
-            new Enemy(300, 400),
-            new Enemy(300, 400),
-            new Enemy(300, 400),
-            new Enemy(400, 500, 'images/enemy-bug-rogue.png')
+            new Enemy(300, 500),
+            new Enemy(300, 500),
+            new Enemy(300, 500),
+            new Enemy(400, 600, 'images/enemy-bug-rogue.png')
         ]
         document.querySelector('button').addEventListener('click', () => {
             // Remove Game Over screen and show the Character Select screen
@@ -408,10 +408,10 @@ Lives.prototype.render = function () {
 const player = new Player(201, 400);
 
 let allEnemies = [
-    new Enemy(300, 400),
-    new Enemy(300, 400),
-    new Enemy(300, 400),
-    new Enemy(400, 500, 'images/enemy-bug-rogue.png')
+    new Enemy(300, 500),
+    new Enemy(300, 500),
+    new Enemy(300, 500),
+    new Enemy(400, 600, 'images/enemy-bug-rogue.png')
 ];
 
 let allItems = [];
