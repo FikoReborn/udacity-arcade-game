@@ -2,6 +2,8 @@
 
 ## Table of Contents
 
+* [About this Project](#About this Project)
+* [How to Run this Game](#How to Run this Game)
 * [Instructions](#instructions)
 * [Dependencies](#dependencies)
 * [Contributing](#contributing)
@@ -13,11 +15,14 @@ The base code provided a function to control the player via use of the direction
 
 Overall, I had a ton of fun working on this!
 
+## How to Run this Game
+Just click here and the game will load up. Choose your character, and use the directional keys on the keyboard to move the player, or use your mouse or touchscreen.  If you run out of lives, clicking "Play Again" will bring you back to the character select screen and all information will reset.
+
 ## Instructions
 
   The game is pretty simple. After you choose your character, your objective is to just get to the water on the other end of the map.  You can collect items that randomly appear on the board after your first turn. You start with 3 lives (hearts on top right of the screen), and you can obtain a maximum of 5 hearts. If you are hit by an enemy, you will be brought back to your starting position and your lives will decrease by 1. When you have no hearts left, you are on your last turn and it is game over if you are hit after that point. 
 
-  If you reach the water, you will also reset to your starting position, but your lives will remain unchanged and you will gain 500 points. Points are displayed on the top left of the screen. Enemy speed will increase marginally each turn until they reach a predetermined cap (for balancing purposes). Also take note, after your first turn, a "rogue" enemy will appear on the map. This one is blue colored and is much faster than his comrades. 
+  If you reach the water, you will also reset to your starting position, but your lives will remain unchanged and you will gain 500 points. Points are displayed on the top left of the screen. Enemy speed will increase marginally each turn until they reach a predetermined cap (for balancing purposes). 
 
   Below are bonuses for items obtained:
 

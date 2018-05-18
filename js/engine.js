@@ -66,6 +66,7 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
+        charSelect();
         reset();
         lastTime = Date.now();
         main();
@@ -93,11 +94,19 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
-        allItems.forEach(function(items) {
-            items.update();
+        allItems.forEach(function(item) {
+            item.update();
         });
+        if (player.y === -15) {
+            // Reset items after player reaches water
+            generateItems();
+        }
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
+            // Increase all enemy speed if player reaches water and spd is less than maxSpd
+            if (player.y === -15 && enemy.spd <= enemy.maxSpd) {
+                enemy.increaseSpd();
+            }
         });
         player.update();
         score.update();
@@ -172,7 +181,7 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        player.reset();
+        gameOver();
     }
 
     /* Go ahead and load all of the images we know we're going to need to

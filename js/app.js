@@ -68,98 +68,7 @@ function toggleMusic(event) {
     }
 }
 
-// Below are our classess
-
-// Enemies our player must avoid
-var Enemy = function (spd, maxSpd, id, sprite = 'images/enemy-bug.png') {
-    // Set params to a variable
-    this.spd = spd;
-    this.maxSpd = maxSpd;
-    this.sprite = sprite;
-    this.id = id;
-
-    // Other variables for enemy object
-    // const enemyRows = [68, 151, 234];
-    // const enemyCols = [-800, -600, -500, -400, -300, -200, -100];
-    const yArray = [68, 151, 234];
-    this.x = Math.floor(Math.random() * 4) * 100 - 1000;
-    this.y = yArray[randInd(yArray)];
-};
-
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function (dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    this.x += this.spd * dt;
-    if (this.x > 600) {
-        // Return enemy to a position to left of canvas after
-        // leaving to right of canvas
-        allEnemies.splice(this.id, 1, new Enemy(this.spd, this.maxSpd, this.id, this.sprite));
-    }
-    // Collision detection when enemy collides with player
-    if (this.y === player.y && this.x >= player.x - 61 && this.x <= player.x + 30) {
-        // After enemy hits player, play damage sound sprite and
-        // return player to starting position. Reduce hearts/lives by 1.
-        effects.play('bug-damage');
-        player.x = 201;
-        player.y = 400;
-        allEnemies.forEach(enemy => enemy.reset());
-        lives.value -= 1;
-    }
-};
-
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function () {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-Enemy.prototype.reset = function () {
-    // Reset for when player reaches water
-    // First increase speed by 50
-    if (this.spd <= this.maxSpd) {
-        this.spd += 10;
-    }
-    // Push "rogue" bug if this is the player's first turn
-    if (allEnemies.length === 3) {
-        allEnemies.push(new Enemy(300, 400, 3, 'images/enemy-bug-rogue.png'));
-    }
-    // Reset this enemy by replacing with new duplicate object
-    allEnemies.splice(this.id, 1, new Enemy(this.spd, this.maxSpd, this.id, this.sprite));
-};
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-var Player = function (x, y) {
-    this.sprite = 'images/char-boy.png';
-    this.x = x;
-    this.y = y;
-    this.gameStart = 'no';
-};
-
-Player.prototype.update = function () {
-    // Update player position
-    if (this.y === -15) {
-        // When player reaches water, return player to starting position
-        // increase score, reset bugs and items, play victory sound sprite
-        effects.play('victory');
-        this.x = 201;
-        this.y = 400;
-        score.value += 500;
-        allEnemies.forEach(enemy => enemy.reset());
-        this.generateItems();
-    }
-
-};
-
-Player.prototype.render = function () {
-    // Draw player on screen
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-Player.prototype.charSelect = function () {
+function charSelect () {
     // Create character select screen and append to canvas container
     const startScreen = document.createElement('div');
     startScreen.classList = 'modal';
@@ -210,9 +119,9 @@ Player.prototype.charSelect = function () {
             }
         }
     });
-}
+};
 
-Player.prototype.reset = function () {
+function gameOver () {
     // Game Over screen
     if (lives.value < 0) {
         // Create and display Game Over screen if there are no lives left
@@ -241,15 +150,21 @@ Player.prototype.reset = function () {
         score.value = 0;
         score.display = '0000000' + score.value.toString();
         allItems = [];
+        allEnemies = [
+            new Enemy(300, 400),
+            new Enemy(300, 400),
+            new Enemy(300, 400),
+            new Enemy(400, 500, 'images/enemy-bug-rogue.png')
+        ]
         document.querySelector('button').addEventListener('click', () => {
             // Remove Game Over screen and show the Character Select screen
             resetScreen.remove();
             charSelect();
         });
-    }
+    };
 };
 
-Player.prototype.generateItems = function () {
+function generateItems () {
     allItems = [];
     let items = [
         'images/Rock.png',
@@ -258,7 +173,7 @@ Player.prototype.generateItems = function () {
         'images/gem-orange.png',
         'images/gem-blue.png',
         'images/Heart.png'
-    ]
+    ];
     let itemCoords = [
         [15, 187],
         [116, 187],
@@ -275,7 +190,7 @@ Player.prototype.generateItems = function () {
         [217, 104],
         [318, 104],
         [419, 104]
-    ]
+    ];
     // Randomly place items around "battlefield" cells (where the bugs are)
     // Remove coordinates and item from respective variables after each iteration
     // This ensures that we don't see the same items in the same locations and 
@@ -287,7 +202,86 @@ Player.prototype.generateItems = function () {
         items.splice(itemInd, 1);
         itemCoords.splice(itemCoordsInd, 1);
     };
-}
+};
+
+// Below are our classess
+
+// Enemies our player must avoid
+var Enemy = function (spd, maxSpd, sprite = 'images/enemy-bug.png') {
+    // Set params to a variable
+    this.spd = spd;
+    this.maxSpd = maxSpd;
+    this.sprite = sprite;
+
+    // Other variables for enemy object
+    // const enemyRows = [68, 151, 234];
+    // const enemyCols = [-800, -600, -500, -400, -300, -200, -100];
+    this.yArray = [68, 151, 234];
+    this.x = Math.floor(Math.random() * 4) * 100 - 1000;
+    this.y = this.yArray[randInd(this.yArray)];
+};
+
+// Update the enemy's position, required method for game
+// Parameter: dt, a time delta between ticks
+Enemy.prototype.update = function (dt) {
+    // You should multiply any movement by the dt parameter
+    // which will ensure the game runs at the same speed for
+    // all computers.
+    this.x += this.spd * dt;
+    if (this.x > 600) {
+        // Return enemy to a position to left of canvas after
+        // leaving to right of canvas
+        this.x = Math.floor(Math.random() * 4) * 100 - 1000;
+        this.y = this.yArray[randInd(this.yArray)];
+    }
+    // Collision detection when enemy collides with player
+    if (this.y === player.y && this.x >= player.x - 61 && this.x <= player.x + 30) {
+        // After enemy hits player, play damage sound sprite and
+        // return player to starting position. Reduce hearts/lives by 1.
+        effects.play('bug-damage');
+        player.x = 201;
+        player.y = 400;
+        lives.value -= 1;
+    }
+};
+
+// Draw the enemy on the screen, required method for game
+Enemy.prototype.render = function () {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Enemy.prototype.increaseSpd = function () {
+    // Enemy reset called by engine
+    this.spd += 10;
+};
+
+// Now write your own player class
+// This class requires an update(), render() and
+// a handleInput() method.
+var Player = function (x, y) {
+    this.sprite = 'images/char-boy.png';
+    this.x = x;
+    this.y = y;
+    this.gameStart = 'no';
+};
+
+Player.prototype.update = function () {
+    // Update player position
+    if (this.y === -15) {
+        // When player reaches water, return player to starting position
+        // increase score, reset bugs and items, play victory sound sprite
+        effects.play('victory');
+        this.x = 201;
+        this.y = 400;
+        score.value += 500;
+    }
+
+};
+
+Player.prototype.render = function () {
+    // Draw player on screen
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
 Player.prototype.handleInput = function (keyPressed) {
     // Move character if the appropriate key is pressed
@@ -347,8 +341,7 @@ Item.prototype.update = function () {
         } else if (this.image === 'images/Star.png') {
             effects.play('star');
             score.value += 150;
-            allItems = [];
-            player.generateItems();
+            generateItems();
         } else if (this.image === 'images/Rock.png') {
             effects.play('rock');
             // Make sure score does not fall below 0 in case user has less than 3000 points
@@ -415,18 +408,15 @@ Lives.prototype.render = function () {
 const player = new Player(201, 400);
 
 let allEnemies = [
-    new Enemy(200, 300, 0),
-    new Enemy(200, 300, 1),
-    new Enemy(200, 300, 2)
-    // new Enemy(enemyCols[randInd(enemyCols)], enemyRows[randInd(enemyRows)], spdMultiplierRogue, 'images/enemy-bug-rogue.png')
+    new Enemy(300, 400),
+    new Enemy(300, 400),
+    new Enemy(300, 400),
+    new Enemy(400, 500, 'images/enemy-bug-rogue.png')
 ];
 
 let allItems = [];
 let lives = new Lives();
 const score = new Score();
-
-// Show character select before user is able to do anything
-player.charSelect();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
