@@ -57,11 +57,9 @@ function toggleMusic(event) {
         musicToggleContainer.classList.remove('on');
         musicToggleContainer.classList.add('off');
         bgm.pause();
-        musicToggleContainer.innerHTML = '<i class="fas fa-music"></i> Ambience: OFF';
     } else {
         musicToggleContainer.classList.remove('off');
         musicToggleContainer.classList.add('on');
-        musicToggleContainer.innerHTML = '<i class="fas fa-￼music"></i> Ambience: ON';
         // Only play music right now if the character selec￼t and game over screens
         // are not showing￼
         if (document.querySelector('.char-select') === null && document.querySelector('.game-over') === null) {

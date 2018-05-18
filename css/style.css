@@ -54,11 +54,7 @@ body {
 
 .modal .char-select .char .char-image {
     user-drag: none;
-    user-select: none;
-    -moz-user-select: none;
     -webkit-user-drag: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
 }
 
 .modal .char-text, .modal .char-select .char .char-text {
@@ -148,12 +144,7 @@ body {
 }
 
 .wrapper .inner-wrapper .music-toggle {
-    user-select: none;
     cursor: pointer;
-}
-
-.wrapper .inner-wrapper .music-toggle:hover {
-    text-shadow: 0 0 3px yellow;
 }
 
 .wrapper .inner-wrapper .music-toggle.on {
