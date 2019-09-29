@@ -16,7 +16,7 @@ The base code provided a function to control the player via use of the direction
 Overall, I had a ton of fun working on this!
 
 ## How to Run this Game
-Just click [here](http://www.aduff.org/udacity-arcade-game) and the game will load up. Choose your character, and use the directional keys on the keyboard to move the player, or use your mouse or touchscreen.  If you run out of lives, clicking "Play Again" will bring you back to the character select screen and all information will reset.
+Just click [here](http://fikoreborn.github.io/udacity-arcade-game) and the game will load up. Choose your character, and use the directional keys on the keyboard to move the player, or use your mouse or touchscreen.  If you run out of lives, clicking "Play Again" will bring you back to the character select screen and all information will reset.
 
 ## Instructions
 
